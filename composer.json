@@ -1,0 +1,27 @@
+{
+  "name": "app/ztm-targeo",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Krzysztof Domańczyk",
+      "email": "k.domanczyk@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "8.3.16",
+    "larapack/dd": "1.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Infrastructure\\": "infrastructure/",
+      "Domain\\": "domain/"
+    }
+  },
+  "require-dev": {
+    "phpstan/phpstan": "^2.1",
+    "php-cs-fixer/shim": "^3.68",
+    "rector/rector": "^2.0"
+  }
+}

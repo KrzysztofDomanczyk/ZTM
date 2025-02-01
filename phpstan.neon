@@ -1,0 +1,6 @@
+parameters:
+    paths:
+        - app
+        - domain
+        - infrastructure
+    level: max
