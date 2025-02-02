@@ -4,6 +4,9 @@ namespace Infrastructure;
 
 class View
 {
+    /**
+     * @param array<mixed> $data
+     */
     public function __construct(protected string $name, protected array $data = [])
     {
     }

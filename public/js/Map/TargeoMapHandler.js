@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { mapOptionsConfig, targeoKey, dataApiUrl } from "../config.js";
+import { mapOptionsConfig, targeoKey, vehicleApiUrl } from "../config.js";
 import { MapPoint } from "./MapPoint.js";
 import { TargeoMap } from "./TargeoMap.js";
 export class TargeoMapHandler {
@@ -57,9 +57,9 @@ export class TargeoMapHandler {
             var _a;
             console.log('Getting markers...');
             try {
-                const response = yield fetch(dataApiUrl);
-                const data = yield response.json();
-                const vehicles = data.vehicles;
+                const response = yield fetch(vehicleApiUrl);
+                const vehicles = yield response.json();
+                console.log("Vehicles:", vehicles);
                 if (!vehicles) {
                     console.error("Not found vehicles");
                     return;

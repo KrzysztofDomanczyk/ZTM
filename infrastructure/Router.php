@@ -2,15 +2,17 @@
 
 namespace Infrastructure;
 
+use App\Controllers\API\VehicleController;
 use App\Controllers\HomeController;
 
 class Router
 {
     protected $routes = [
-        '/'       => [HomeController::class, 'index'],
+        '/' => [HomeController::class, 'index'],
+        '/api/vehicles' => [VehicleController::class, 'index'],
     ];
 
-    public function handle()
+    public function handle(): void
     {
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

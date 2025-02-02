@@ -1,4 +1,4 @@
-import {mapOptionsConfig, targeoKey, dataApiUrl} from "../config.js";
+import {mapOptionsConfig, targeoKey, vehicleApiUrl} from "../config.js";
 import {MapPoint} from "./MapPoint.js";
 import {TargeoMap} from "./TargeoMap.js";
 
@@ -62,15 +62,17 @@ export class TargeoMapHandler {
     async setMarkers(): Promise<void> {
         console.log('Getting markers...');
         try {
-            const response = await fetch(dataApiUrl);
-            const data = await response.json();
-            const vehicles: { lat: number, lon: number, vehicleId: number }[] = data.vehicles;
+            const response = await fetch(vehicleApiUrl);
+            const vehicles: { lat: number, lon: number, vehicleId: number }[] = await response.json();
+            console.log("Vehicles:", vehicles);
+
             if (!vehicles) {
                 console.error("Not found vehicles");
                 return;
             }
 
             this.map?.removeMarkers()
+
             vehicles.forEach(vehicle => {
                 let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicleId);
                 this.map?.addMarker(p1);

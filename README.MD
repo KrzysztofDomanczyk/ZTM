@@ -23,4 +23,8 @@ npx tsc --watch
 - **PHPStan**: Usage of PHPStan.
 - **Simple Router**: Implementation of a simple router.
 - **WebSocket**: WebSocket usage.
+- **DI**: nie dodano.
+- **postgis**: nie dodano.
+- **garbage collector dla danych vehicle**: nie dodano.
+- 
 ```

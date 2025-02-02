@@ -18,6 +18,8 @@ return RectorConfig::configure()
         SetList::TYPE_DECLARATION,
         SetList::PRIVATIZATION,
         SetList::EARLY_RETURN,
+        SetList::PHP_83,
+        SetList::BEHAT_ANNOTATIONS_TO_ATTRIBUTES
     ])
     // here we can define, what prepared sets of rules will be applied
     ->withPreparedSets(

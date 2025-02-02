@@ -15,7 +15,8 @@ export const mapOptionsConfig: MapOptions = {
 }
 
 export const targeoKey: string = 'ZjlhMmU2Nzc5OGQwNjczMWZkYWE2MGRlZTY1ZjRkY2U3M2E1M2ZkYg==';
-export const dataApiUrl: string = 'https://ckan2.multimediagdansk.pl/gpsPositions?v=2';
+ // export const vehicleApiUrl: string = 'https://ckan2.multimediagdansk.pl/gpsPositions?v=2';
+export const vehicleApiUrl: string = 'http://localhost:8888/api/vehicles';
 
 export const defaultMapPointOptions = {
     imageUrl: 'https://mapa.targeo.pl/i/icons/pins/pin-b.png',

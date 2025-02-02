@@ -14,13 +14,13 @@ export class TargeoMap {
         this.map.initialize();
     }
 
-    public   addMarker(marker: MapPoint): void  {
+    public addMarker(marker: MapPoint): void  {
         this.map.UOAdd(marker.sourcePoint);
         this.points.push(marker);
     }
     public  removeMarkers(): void {
         this.points.forEach((marker: MapPoint) => {
-            this.map.UORemove(marker.sourcePoint);
+            this.map.UORemove(marker.sourcePoint.id);
         });
         this.points = [];
     }

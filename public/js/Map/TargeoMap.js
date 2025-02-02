@@ -12,7 +12,7 @@ export class TargeoMap {
     }
     removeMarkers() {
         this.points.forEach((marker) => {
-            this.map.UORemove(marker.sourcePoint);
+            this.map.UORemove(marker.sourcePoint.id);
         });
         this.points = [];
     }
