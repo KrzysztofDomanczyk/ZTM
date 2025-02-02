@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+
     "target": "ES6",
-    "module": "CommonJS",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "public/js",
+    "rootDir": "resources/js"
   },
-  "include": ["src"],
+  "include": ["resources/js"],
   "exclude": ["node_modules"]
 }
