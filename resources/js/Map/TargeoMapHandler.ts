@@ -60,11 +60,9 @@ export class TargeoMapHandler {
     }
 
     async setMarkers(): Promise<void> {
-        console.log('Getting markers...');
         try {
             const response = await fetch(vehicleApiUrl);
             const vehicles: { lat: number, lon: number, vehicleId: number }[] = await response.json();
-            console.log("Vehicles:", vehicles);
 
             if (!vehicles) {
                 console.error("Not found vehicles");

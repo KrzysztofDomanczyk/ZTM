@@ -2,18 +2,18 @@
 
 namespace App\Controllers\API;
 
-use Domain\Vehicles\DTOs\VehicleDTO;
-use Domain\Vehicles\Services\VehicleService;
+use Domain\Vehicles\DTOs\Vehicle;
+use Domain\Vehicles\Services\VehiclesPositionsService;
 
 class VehicleController
 {
     public function index(): void
     {
-        $service = new VehicleService();
+        $service = new VehiclesPositionsService();
 
         $vehicles = $service->refreshData()->getLastVehiclesPositions();
 
-        $vehicles =  array_map(function (VehicleDTO $item): array {
+        $vehicles =  array_map(function (Vehicle $item): array {
             return $item->toArray();
         }, $vehicles);
 

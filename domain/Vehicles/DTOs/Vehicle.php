@@ -2,7 +2,7 @@
 
 namespace Domain\Vehicles\DTOs;
 
-class VehicleDTO
+class Vehicle
 {
     public function __construct(
         public readonly ?int  $id,

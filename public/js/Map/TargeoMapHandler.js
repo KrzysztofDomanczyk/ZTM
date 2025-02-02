@@ -55,11 +55,9 @@ export class TargeoMapHandler {
     setMarkers() {
         return __awaiter(this, void 0, void 0, function* () {
             var _a;
-            console.log('Getting markers...');
             try {
                 const response = yield fetch(vehicleApiUrl);
                 const vehicles = yield response.json();
-                console.log("Vehicles:", vehicles);
                 if (!vehicles) {
                     console.error("Not found vehicles");
                     return;

@@ -2,7 +2,7 @@
 
 namespace Infrastructure\Repositories;
 
-use Domain\Vehicles\DTOs\VehicleDTO;
+use Domain\Vehicles\DTOs\Vehicle;
 use Domain\Vehicles\Interfaces\VehicleRepositoryInterface;
 use Infrastructure\Database;
 
@@ -15,17 +15,17 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
     }
 
     /**
-     * @return array<VehicleDTO>
+     * @return array<Vehicle>
      */
     public function getLastPositionOfVehicles(): array
     {
-        $query = 'SELECT DISTINCT ON (vehicle_id) * FROM vehicles ORDER BY vehicle_id, updated_at DESC';
+        $query = 'SELECT DISTINCT ON (vehicle_id) * FROM vehicles WHERE created_at >= NOW() - INTERVAL \'10 minutes\' ORDER BY vehicle_id, created_at DESC';
         $statement = $this->database->getPDO()->prepare($query);
         $statement->execute();
         $array = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        return array_map(function ($item): \Domain\Vehicles\DTOs\VehicleDTO {
-            return new VehicleDTO(
+        return array_map(function ($item): \Domain\Vehicles\DTOs\Vehicle {
+            return new Vehicle(
                 $item['id'],
                 $item['vehicle_id'],
                 (float)$item['lat'],
@@ -36,7 +36,7 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
     }
 
     /**
-     * @return array<VehicleDTO>
+     * @return array<Vehicle>
      */
     public function getAll(): array
     {
@@ -45,8 +45,8 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
         $statement->execute();
         $array = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
-        return array_map(function ($item): \Domain\Vehicles\DTOs\VehicleDTO {
-            return new VehicleDTO(
+        return array_map(function ($item): \Domain\Vehicles\DTOs\Vehicle {
+            return new Vehicle(
                 $item['id'],
                 $item['vehicle_id'],
                 (float)$item['lat'],
@@ -56,7 +56,7 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
         }, $array);
     }
 
-    public function insert(VehicleDTO $vehicleDTO): void
+    public function insert(Vehicle $vehicleDTO): void
     {
         $checksum = $vehicleDTO->getChecksum();
         $vehicle_id = $vehicleDTO->vehicleId;

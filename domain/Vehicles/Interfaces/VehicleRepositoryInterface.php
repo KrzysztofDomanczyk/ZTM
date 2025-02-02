@@ -2,10 +2,10 @@
 
 namespace Domain\Vehicles\Interfaces;
 
-use Domain\Vehicles\DTOs\VehicleDTO;
+use Domain\Vehicles\DTOs\Vehicle;
 
 interface VehicleRepositoryInterface
 {
-    public function insert(VehicleDTO $vehicleDTO): void;
+    public function insert(Vehicle $vehicleDTO): void;
     public function getAll(): array;
 }

@@ -2,19 +2,19 @@
 
 namespace Infrastructure\Shared\Responses;
 
-use Domain\Vehicles\DTOs\VehicleDTO;
+use Domain\Vehicles\DTOs\Vehicle;
 use Infrastructure\Shared\AbstractApiResponse;
 
 class GetZTMVehiclesPositionsResponse extends AbstractApiResponse
 {
     /**
-     * @return VehicleDTO[]
+     * @return Vehicle[]
      */
     #[\Override]
     public function getResponse(): array
     {
-        return array_map(function (array $item): \Domain\Vehicles\DTOs\VehicleDTO {
-            return new VehicleDTO(
+        return array_map(function (array $item): \Domain\Vehicles\DTOs\Vehicle {
+            return new Vehicle(
                 null,
                 $item['vehicleId'],
                 (float)$item['lat'],

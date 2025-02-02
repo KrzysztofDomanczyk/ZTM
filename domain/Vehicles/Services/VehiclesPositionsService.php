@@ -2,21 +2,22 @@
 
 namespace Domain\Vehicles\Services;
 
-use Domain\Vehicles\DTOs\VehicleDTO;
+use Domain\Vehicles\DTOs\Vehicle;
 use Infrastructure\Repositories\PostgresVehicleRepository;
 use Infrastructure\Shared\ProceedRequest;
 use Infrastructure\Shared\Requests\GetZTMVehiclesPositionsRequest;
 use Infrastructure\Shared\Responses\GetZTMVehiclesPositionsResponse;
 
-class VehicleService
+class VehiclesPositionsService
 {
+    const string INTERVAL = '10 minutes';
     protected PostgresVehicleRepository $repository;
     public function __construct()
     {
         $this->repository = new PostgresVehicleRepository();
     }
 
-    public function refreshData(): VehicleService
+    public function refreshData(): VehiclesPositionsService
     {
         $vehiclesFromApi = $this->getVehiclesFromApi();
 
@@ -37,11 +38,17 @@ class VehicleService
 
     public function getLastVehiclesPositions()
     {
+            $vehicles = $this->repository->getLastPositionOfVehicles();
+
+            if(empty($vehicles)) {
+                $this->refreshData();
+            }
+
         return $this->repository->getLastPositionOfVehicles();
     }
 
     /**
-     * @return VehicleDTO[]
+     * @return Vehicle[]
      */
     public function getVehiclesFromApi(): array
     {
