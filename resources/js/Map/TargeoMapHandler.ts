@@ -14,37 +14,14 @@ export class TargeoMapHandler {
     protected updateTimer: any = null;
     protected updateInterval: number = 6000;
 
-
     constructor() {
         this.key = targeoKey
-        this.loadTargeoScript()
-            .then(() => this.initializeMap())
-            .catch((error) => console.error("Failed to load Targeo script:", error));
     }
 
-    private async loadTargeoScript(): Promise<void> {
-        if (window.Targeo) return;
-
-        await new Promise<void>((resolve, reject) => {
-            const script = document.createElement("script");
-            script.src = "https://mapa.targeo.pl/Targeo.html?vn=3_0&k=" + this.key + "&f=TargeoMapInitialize&e=TargeoMapContainer&ln=pl";
-            script.type = "text/javascript";
-            script.onload = () => resolve();
-            script.onerror = () => reject(new Error("Failed to load Targeo script."));
-            document.head.appendChild(script);
-        });
-
-        await this.waitForTargeo();
-    }
-
-    private async waitForTargeo(): Promise<void> {
-        while (!window.Targeo) {
-            await new Promise((resolve) => setTimeout(resolve, 100));
-        }
-    }
-
-    private initializeMap(): void {
+    public async initializeMap(): Promise<void> {
+        console.log(window.Targeo);
         if (!window.Targeo) {
+            setTimeout(() => this.initializeMap(), 100);
             console.error("Targeo is not available.");
             return;
         }
@@ -55,24 +32,23 @@ export class TargeoMapHandler {
 
         console.log("Map initialized!");
 
-        this.setMarkers().then();
-        this.startAutoUpdate().then();
+        await this.setMarkers();
+        await this.startAutoUpdate();
     }
 
-    async setMarkers(): Promise<void> {
+    private async setMarkers(): Promise<void> {
         try {
             const response = await fetch(vehicleApiUrl);
-            const vehicles: { lat: number, lon: number, vehicleId: number }[] = await response.json();
+            const vehicles: { lat: number, lon: number, vehicle_id: number }[] = await response.json();
 
             if (!vehicles) {
                 console.error("Not found vehicles");
                 return;
             }
 
-            this.map?.removeMarkers()
-
+            this.map?.removeMarkers();
             vehicles.forEach(vehicle => {
-                let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicleId);
+                let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicle_id);
                 this.map?.addMarker(p1);
             });
 

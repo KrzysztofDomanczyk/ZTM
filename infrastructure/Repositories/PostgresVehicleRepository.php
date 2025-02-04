@@ -19,7 +19,7 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
      */
     public function getLastPositionOfVehicles(): array
     {
-        $query = 'SELECT DISTINCT ON (vehicle_id) * FROM vehicles WHERE created_at >= NOW() - INTERVAL \'10 minutes\' ORDER BY vehicle_id, created_at DESC';
+        $query = 'SELECT DISTINCT ON (vehicle_id) * FROM vehicles WHERE created_at >= NOW() - INTERVAL \'1 minutes\' ORDER BY vehicle_id, created_at DESC';
         $statement = $this->database->getPDO()->prepare($query);
         $statement->execute();
         $array = $statement->fetchAll(\PDO::FETCH_ASSOC);
@@ -68,6 +68,13 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
         $statement->bindParam(':lat', $lat);
         $statement->bindParam(':lon', $lon);
         $statement->bindParam(':checksum', $checksum);
+        $statement->execute();
+    }
+
+    public function truncate(): void
+    {
+        $query = 'TRUNCATE TABLE vehicles';
+        $statement = $this->database->getPDO()->prepare($query);
         $statement->execute();
     }
 

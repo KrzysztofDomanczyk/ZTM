@@ -11,7 +11,7 @@ class VehicleController
     {
         $service = new VehiclesPositionsService();
 
-        $vehicles = $service->refreshData()->getLastVehiclesPositions();
+        $vehicles = $service->getLastVehiclesPositions();
 
         $vehicles =  array_map(function (Vehicle $item): array {
             return $item->toArray();

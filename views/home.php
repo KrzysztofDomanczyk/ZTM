@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moja Aplikacja</title>
 
+    <script  type="module"  src="/js/main.js" ></script>
 </head>
 <body>
 
-<strong>Mapa z pozycjami pojazdów ZTM Gdańsk - dane są pobierane co 1 minutę ze względu na ogranicznia API</strong>
+<a href="https://mapa.targeo.pl/" id="TargeoMapContainer" style="position:relative;margin:0 auto;top:0;width:980px;height:600px;" >Mapa Polski Targeo</a>
 
-<a href="https://mapa.targeo.pl/" id="TargeoMapContainer" style="position:relative;margin:0 auto;top:0;width:980px;height:600px;">Mapa Polski Targeo</a>
-<script type="module"  src="/js/main.js"></script>
+<script  src="https://mapa.targeo.pl/Targeo.html?vn=3_0&k=ZjlhMmU2Nzc5OGQwNjczMWZkYWE2MGRlZTY1ZjRkY2U3M2E1M2ZkYg==&f=TargeoMapInitialize&e=TargeoMapContainer&ln=pl" type="text/javascript" ></script>
 </body>
 </html>
 

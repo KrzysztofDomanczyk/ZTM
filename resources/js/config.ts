@@ -14,8 +14,7 @@ export const mapOptionsConfig: MapOptions = {
     },
 }
 
-export const targeoKey: string = 'ZjlhMmU2Nzc5OGQwNjczMWZkYWE2MGRlZTY1ZjRkY2U3M2E1M2ZkYg==';
- // export const vehicleApiUrl: string = 'https://ckan2.multimediagdansk.pl/gpsPositions?v=2';
+export const targeoKey: string = '';
 export const vehicleApiUrl: string = 'http://localhost:8888/api/vehicles';
 
 export const defaultMapPointOptions = {

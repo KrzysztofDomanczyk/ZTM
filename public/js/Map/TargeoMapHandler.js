@@ -15,42 +15,21 @@ export class TargeoMapHandler {
         this.updateTimer = null;
         this.updateInterval = 6000;
         this.key = targeoKey;
-        this.loadTargeoScript()
-            .then(() => this.initializeMap())
-            .catch((error) => console.error("Failed to load Targeo script:", error));
-    }
-    loadTargeoScript() {
-        return __awaiter(this, void 0, void 0, function* () {
-            if (window.Targeo)
-                return;
-            yield new Promise((resolve, reject) => {
-                const script = document.createElement("script");
-                script.src = "https://mapa.targeo.pl/Targeo.html?vn=3_0&k=" + this.key + "&f=TargeoMapInitialize&e=TargeoMapContainer&ln=pl";
-                script.type = "text/javascript";
-                script.onload = () => resolve();
-                script.onerror = () => reject(new Error("Failed to load Targeo script."));
-                document.head.appendChild(script);
-            });
-            yield this.waitForTargeo();
-        });
-    }
-    waitForTargeo() {
-        return __awaiter(this, void 0, void 0, function* () {
-            while (!window.Targeo) {
-                yield new Promise((resolve) => setTimeout(resolve, 100));
-            }
-        });
     }
     initializeMap() {
-        if (!window.Targeo) {
-            console.error("Targeo is not available.");
-            return;
-        }
-        this.map = new TargeoMap(mapOptionsConfig);
-        this.map.initialize();
-        console.log("Map initialized!");
-        this.setMarkers().then();
-        this.startAutoUpdate().then();
+        return __awaiter(this, void 0, void 0, function* () {
+            console.log(window.Targeo);
+            if (!window.Targeo) {
+                setTimeout(() => this.initializeMap(), 100);
+                console.error("Targeo is not available.");
+                return;
+            }
+            this.map = new TargeoMap(mapOptionsConfig);
+            this.map.initialize();
+            console.log("Map initialized!");
+            yield this.setMarkers();
+            yield this.startAutoUpdate();
+        });
     }
     setMarkers() {
         return __awaiter(this, void 0, void 0, function* () {
@@ -65,7 +44,7 @@ export class TargeoMapHandler {
                 (_a = this.map) === null || _a === void 0 ? void 0 : _a.removeMarkers();
                 vehicles.forEach(vehicle => {
                     var _a;
-                    let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicleId);
+                    let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicle_id);
                     (_a = this.map) === null || _a === void 0 ? void 0 : _a.addMarker(p1);
                 });
                 console.log("Markers have been set");

@@ -1,19 +1,20 @@
 ```markdown
 ## Start
 
-docker compose up --build -d
+1. docker compose up --build -d
+2. docker exec -it ztm_targeo_backend composer install
 ```
 http://localhost:8888/
 
 ## Commands
 
 ```sh
-vendor/bin/phpstan analyse
 vendor/bin/rector process
 vendor/bin/php-cs-fixer fix
 npx tsc --watch
 ```
 
+## Conditions
 * wykorzystanie API z danymi realtime
 * automatyczne wyświetlanie bieżącej lub ostatniej znanej pozycji pojazdów (nie starszych niż 10 minut)
 * zapis / cache danych do DB (Postgres), aby nie pobierać ich przy każdym otwarciu mapy
@@ -26,15 +27,9 @@ npx tsc --watch
 
 
 ## Notes
-
-- **PHP 8.3**: Use PHP 8.3 because 8.4 is not stable yet.
-- **PHPStan**: Usage of PHPStan.
-- **Simple Router**: Implementation of a simple router.
-- **WebSocket**: WebSocket usage.
-- **DI**: nie dodano.
-- **postgis**: nie dodano.
-- **garbage collector dla danych vehicle**: nie dodano.
-- - **Autoryzacja**: nie dodano.
-- zapis / cache danych do DB (Postgres), aby nie pobierać ich przy każdym otwarciu mapy - 
-- 
+- Api ZTM Gdańsk (https://ckan2.multimediagdansk.pl/gpsPositions?v=2), zwraca pozycje pojazdów co około 1-2 minut.
+- Ze względu na prostote zadania, nie napisano mechanizmu dependency injection. Zamiast tego użyto zwykłego tworzenia klasy w domenie.
+- Ze względu na prostote zadania nie użyto postGis, w produkcyjnej wersji można byłoby użyć tego rozszerzenia. Architektura pozwala na dodanie rozszerzenia w przyszlości.
+- Ze względu na poziom niski poziom skomplikowania zadania, nie dodano żadnej autoryzacji między FE i BE.
 ```
+

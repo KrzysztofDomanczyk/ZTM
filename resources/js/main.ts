@@ -1,3 +1,5 @@
 import { TargeoMapHandler } from "./Map/TargeoMapHandler.js";
 
-let mapHandler: TargeoMapHandler = new TargeoMapHandler()
+let mapHandler: TargeoMapHandler = new TargeoMapHandler();
+
+mapHandler.initializeMap();
