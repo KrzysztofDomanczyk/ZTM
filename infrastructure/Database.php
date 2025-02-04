@@ -13,9 +13,10 @@ class Database
     private function __construct()
     {
         try {
-            $dsn = 'pgsql:host=host.docker.internal;port=5432;dbname=system_db';
-            $username = 'system_user';
-            $password = 'system_secret';
+            $config = require __DIR__ . '/Shared/config.php';
+            $dsn = $config['database']['dsn'];
+            $username = $config['database']['username'];
+            $password = $config['database']['password'];
 
             $this->pdo = new PDO($dsn, $username, $password, [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,

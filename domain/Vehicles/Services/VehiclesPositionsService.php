@@ -10,7 +10,6 @@ use Infrastructure\Shared\Responses\GetZTMVehiclesPositionsResponse;
 
 class VehiclesPositionsService
 {
-    public const string INTERVAL = '10 minutes';
     protected PostgresVehicleRepository $repository;
     public function __construct()
     {
@@ -38,7 +37,10 @@ class VehiclesPositionsService
         return $this;
     }
 
-    public function getLastVehiclesPositions()
+    /**
+     * @return array<Vehicle>
+     */
+    public function getLastVehiclesPositions(): array
     {
         $vehicles = $this->repository->getLastPositionOfVehicles();
 
@@ -46,11 +48,12 @@ class VehiclesPositionsService
             $this->refreshData();
             $vehicles = $this->repository->getLastPositionOfVehicles();
         }
+
         return $vehicles;
     }
 
     /**
-     * @return Vehicle[]
+     * @return array<Vehicle>
      */
     public function getVehiclesFromApi(): array
     {

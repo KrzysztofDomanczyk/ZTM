@@ -28,8 +28,8 @@ npx tsc --watch
 
 ## Notes
 - Api ZTM Gdańsk (https://ckan2.multimediagdansk.pl/gpsPositions?v=2), zwraca pozycje pojazdów co około 1-2 minut.
-- Ze względu na prostote zadania, nie napisano mechanizmu dependency injection. Zamiast tego użyto zwykłego tworzenia klasy w domenie.
-- Ze względu na prostote zadania nie użyto postGis, w produkcyjnej wersji można byłoby użyć tego rozszerzenia. Architektura pozwala na dodanie rozszerzenia w przyszlości.
-- Ze względu na poziom niski poziom skomplikowania zadania, nie dodano żadnej autoryzacji między FE i BE.
+- Ze względu na uproszczenie zadania, nie napisano mechanizmu dependency injection. Zamiast tego użyto zwykłego tworzenia klasy w domenie.
+- Ze względu na uproszczenie zadania nie użyto postGis, w produkcyjnej wersji można byłoby użyć tego rozszerzenia. Architektura pozwala na dodanie rozszerzenia w przyszlości.
+- Ze względu na uproszczenie zadania, nie dodano żadnej autoryzacji między FE i BE.
 ```
 
