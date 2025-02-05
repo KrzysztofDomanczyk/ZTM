@@ -19,7 +19,6 @@ export class TargeoMapHandler {
     }
 
     public async initializeMap(): Promise<void> {
-        console.log(window.Targeo);
         if (!window.Targeo) {
             setTimeout(() => this.initializeMap(), 100);
             console.error("Targeo is not available.");
@@ -52,7 +51,7 @@ export class TargeoMapHandler {
                 this.map?.addMarker(p1);
             });
 
-            console.log("Markers have been set");
+            console.log("Markers have been set. Count: ", vehicles.length);
         } catch (error) {
             console.error("Error while getting markers", error);
         }

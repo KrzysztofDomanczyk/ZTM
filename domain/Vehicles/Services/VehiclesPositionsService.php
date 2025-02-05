@@ -3,6 +3,7 @@
 namespace Domain\Vehicles\Services;
 
 use Domain\Vehicles\DTOs\Vehicle;
+use Domain\Vehicles\Interfaces\VehicleRepositoryInterface;
 use Infrastructure\Repositories\PostgresVehicleRepository;
 use Infrastructure\Shared\ProceedRequest;
 use Infrastructure\Shared\Requests\GetZTMVehiclesPositionsRequest;
@@ -10,14 +11,19 @@ use Infrastructure\Shared\Responses\GetZTMVehiclesPositionsResponse;
 
 class VehiclesPositionsService
 {
-    protected PostgresVehicleRepository $repository;
-    public function __construct()
+    const string REMOVE_OLDER_THAN_MINUTES = '-10 minutes';
+
+    protected VehicleRepositoryInterface $repository;
+
+    public function __construct(VehicleRepositoryInterface $repository = null)
     {
-        $this->repository = new PostgresVehicleRepository();
+        $this->repository = $repository ?? new PostgresVehicleRepository();
     }
 
     public function refreshData(): VehiclesPositionsService
     {
+        $this->repository->removeOlderThanDate(date('Y-m-d H:i:s', strtotime(self::REMOVE_OLDER_THAN_MINUTES)));
+
         $vehiclesFromApi = $this->getVehiclesFromApi();
 
         $vehiclesFromDatabase = $this->repository->getAll();
@@ -29,8 +35,6 @@ class VehiclesPositionsService
         $vehicles = array_filter($vehiclesFromApi, function ($item) use ($repositoryChecksums) {
             return !in_array($item->getChecksum(), $repositoryChecksums);
         });
-
-        $this->repository->truncate();
 
         $this->repository->insertBulk($vehicles);
 

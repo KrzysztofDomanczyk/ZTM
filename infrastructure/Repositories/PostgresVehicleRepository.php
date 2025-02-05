@@ -106,4 +106,12 @@ class PostgresVehicleRepository implements VehicleRepositoryInterface
 
         $statement->execute();
     }
+
+    public function removeOlderThanDate(string $date): void
+    {
+        $query = 'DELETE FROM vehicles WHERE created_at < :date';
+        $statement = $this->database->getPDO()->prepare($query);
+        $statement->bindParam(':date', $date);
+        $statement->execute();
+    }
 }

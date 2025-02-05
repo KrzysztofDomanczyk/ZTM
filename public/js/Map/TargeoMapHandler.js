@@ -18,7 +18,6 @@ export class TargeoMapHandler {
     }
     initializeMap() {
         return __awaiter(this, void 0, void 0, function* () {
-            console.log(window.Targeo);
             if (!window.Targeo) {
                 setTimeout(() => this.initializeMap(), 100);
                 console.error("Targeo is not available.");
@@ -47,7 +46,7 @@ export class TargeoMapHandler {
                     let p1 = new MapPoint(vehicle.lon, vehicle.lat, vehicle.vehicle_id);
                     (_a = this.map) === null || _a === void 0 ? void 0 : _a.addMarker(p1);
                 });
-                console.log("Markers have been set");
+                console.log("Markers have been set. Count: ", vehicles.length);
             }
             catch (error) {
                 console.error("Error while getting markers", error);

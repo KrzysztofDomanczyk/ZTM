@@ -17,6 +17,7 @@ class ProceedRequest
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $request->headers());
 
+        //TODO Other options are not implemented
         if ($request->method() === 'POST') {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
@@ -27,7 +28,7 @@ class ProceedRequest
         $response = curl_exec($ch);
 
         if (curl_errno($ch) !== 0) {
-            echo 'Error cURL: ' . curl_error($ch);
+            throw new \Exception('Curl error: '.curl_error($ch));
         }
 
         curl_close($ch);
@@ -45,18 +46,5 @@ class ProceedRequest
             throw new Exception('Class '.$responseClass.' not found.');
         }
         return $responseClass;
-    }
-
-    protected function getAuthorizationData(): array
-    {
-        return [];
-    }
-
-    protected function getHeaders(): array
-    {
-        return [
-            'Content-Type' => 'application/json;charset=UTF-8',
-            'Accept' => 'application/json',
-        ];
     }
 }

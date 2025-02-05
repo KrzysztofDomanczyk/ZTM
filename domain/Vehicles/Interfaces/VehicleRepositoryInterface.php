@@ -11,4 +11,5 @@ interface VehicleRepositoryInterface
     public function insert(Vehicle $vehicleDTO): void;
     public function truncate(): void;
     public function insertBulk(array $vehicles): void;
+    public function removeOlderThanDate(string $date): void;
 }
